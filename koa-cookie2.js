@@ -3,6 +3,12 @@ const app = new Koa();
 
 app.use(async(ctx) => {
   if (ctx.url === '/index') {
+    if (ctx.cookies.get('MyName')) {
+      ctx.body = ctx.cookies.get('MyName')
+    } else {
+      ctx.body = 'Cookie is ok';
+    }
+
     ctx.cookies.set(
       'MyName', 'codexian2', {
         domain: 'localhost',                // 写cookie所在的域名
@@ -13,9 +19,8 @@ app.use(async(ctx) => {
         overwrite: false                    // 是否允许重写
       }
     )
-    ctx.body = 'cookie is ok';
   } else {
-    ctx.body = 'hello world';
+    ctx.body = 'hello codexian';
   }
 })
 
